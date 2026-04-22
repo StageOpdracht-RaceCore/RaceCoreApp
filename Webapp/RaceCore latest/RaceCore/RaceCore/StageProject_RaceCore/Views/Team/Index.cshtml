@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StageProject_RaceCore.Models.TeamViewModel>
+@model IEnumerable<StageProject_RaceCore.Models.TeamViewModel>
 @using System.Linq
 
 @{
@@ -23,26 +23,28 @@
 else
 {
     <div class="global-search-bar">
-        <input type="text"
-               id="globalSearchInput"
-               placeholder="Search by team or cyclist name&hellip;"
-               aria-label="Search teams and cyclists" />
-        <button type="button"
-                id="globalSearchClear"
-                title="Clear search"
-                hidden>
+        <input
+            type="text"
+            id="globalSearchInput"
+            placeholder="Search by team or cyclist name&hellip;"
+            aria-label="Search teams and cyclists" />
+        <button
+            type="button"
+            id="globalSearchClear"
+            title="Clear search"
+            hidden>
             &#10005; Clear
         </button>
         <span id="globalSearchCount" aria-live="polite"></span>
     </div>
 
-    <div class="teams-grid" id="teamsGrid">
+    <div class="teams-grid teams-grid-wide-gap" id="teamsGrid">
         @foreach (var team in Model.OrderByDescending(t => t.ActiveCyclistsCount + t.BenchCyclistsCount))
         {
-            <div class="team-card collapsed"
-                 data-team-id="@team.Id"
-                 data-team-name="@team.Name.ToLower()">
-
+            <div
+                class="team-card collapsed"
+                data-team-id="@team.Id"
+                data-team-name="@team.Name.ToLower()">
                 <div class="team-header">
                     <div class="team-meta">
                         <span class="swatch"></span>
@@ -62,10 +64,11 @@ else
                     <div class="team-stats">
                         <div class="team-stats-top">
                             <div class="badge">@team.TeamPoints pts</div>
-                            <button type="button"
-                                    class="collapse-toggle"
-                                    aria-expanded="false"
-                                    title="Toggle team">
+                            <button
+                                type="button"
+                                class="collapse-toggle"
+                                aria-expanded="false"
+                                title="Toggle team">
                                 <span class="arrow">&#9662;</span>
                             </button>
                         </div>
@@ -91,10 +94,11 @@ else
                                         <li data-cyclist-name="@($"{c.FirstName} {c.LastName}".ToLower())">
                                             <span>@c.FirstName @c.LastName</span>
 
-                                            <form asp-controller="Team"
-                                                  asp-action="ToggleCyclistStatus"
-                                                  method="post"
-                                                  class="cyclist-form">
+                                            <form
+                                                asp-controller="Team"
+                                                asp-action="ToggleCyclistStatus"
+                                                method="post"
+                                                class="cyclist-form">
                                                 @Html.AntiForgeryToken()
                                                 <input type="hidden" name="cyclistId" value="@c.Id" />
                                                 <input type="hidden" name="isActive" value="false" />
@@ -121,10 +125,11 @@ else
                                         <li data-cyclist-name="@($"{c.FirstName} {c.LastName}".ToLower())">
                                             <span>@c.FirstName @c.LastName</span>
 
-                                            <form asp-controller="Team"
-                                                  asp-action="ToggleCyclistStatus"
-                                                  method="post"
-                                                  class="cyclist-form">
+                                            <form
+                                                asp-controller="Team"
+                                                asp-action="ToggleCyclistStatus"
+                                                method="post"
+                                                class="cyclist-form">
                                                 @Html.AntiForgeryToken()
                                                 <input type="hidden" name="cyclistId" value="@c.Id" />
                                                 <input type="hidden" name="isActive" value="true" />
@@ -150,11 +155,11 @@ else
     <script>
         (function () {
             // Collapse state (localStorage)
-            var STORAGE_KEY = 'teamsCollapseState';
+            var STORAGE_KEY = "teamsCollapseState";
 
             function readState() {
                 try {
-                    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
                 } catch (e) {
                     return {};
                 }
@@ -169,26 +174,30 @@ else
 
             function saveCardState(card) {
                 var id = card.dataset.teamId;
-                if (!id) return;
+                if (!id) {
+                    return;
+                }
 
                 var state = readState();
-                state[id] = card.classList.contains('collapsed');
+                state[id] = card.classList.contains("collapsed");
                 writeState(state);
             }
 
             function restoreAll() {
                 var state = readState();
 
-                document.querySelectorAll('.team-card[data-team-id]').forEach(function (card) {
+                document.querySelectorAll(".team-card[data-team-id]").forEach(function (card) {
                     var id = card.dataset.teamId;
-                    if (!id) return;
+                    if (!id) {
+                        return;
+                    }
 
                     var collapsed = state.hasOwnProperty(id) ? state[id] : true;
-                    card.classList.toggle('collapsed', collapsed);
+                    card.classList.toggle("collapsed", collapsed);
 
-                    var btn = card.querySelector('.collapse-toggle');
+                    var btn = card.querySelector(".collapse-toggle");
                     if (btn) {
-                        btn.setAttribute('aria-expanded', String(!collapsed));
+                        btn.setAttribute("aria-expanded", String(!collapsed));
                     }
                 });
             }
@@ -215,9 +224,9 @@ else
                     return d > 180 ? 360 - d : d;
                 }
 
-                document.querySelectorAll('.team-card[data-team-id]').forEach(function (card, i) {
+                document.querySelectorAll(".team-card[data-team-id]").forEach(function (card, i) {
                     var id = card.dataset.teamId;
-                    var key = 'teamColor_' + id;
+                    var key = "teamColor_" + id;
                     var saved = null;
 
                     try {
@@ -226,7 +235,7 @@ else
                     }
 
                     if (saved) {
-                        card.style.setProperty('--team-color', saved);
+                        card.style.setProperty("--team-color", saved);
 
                         var m = saved.match(/hsl\(([-\d.]+)/i);
                         if (m) {
@@ -236,13 +245,19 @@ else
                         var candidate = (hashToInt(String(id)) % 360 + i * GOLDEN) % 360;
                         var tries = 0;
 
-                        while (usedHues.some(function (h) { return hueDist(h, candidate) < MIN_DIFF; })) {
+                        while (
+                            usedHues.some(function (h) {
+                                return hueDist(h, candidate) < MIN_DIFF;
+                            })
+                        ) {
                             candidate = (candidate + GOLDEN) % 360;
-                            if (++tries > 36) break;
+                            if (++tries > 36) {
+                                break;
+                            }
                         }
 
-                        var color = 'hsl(' + candidate.toFixed(1) + ',65%,55%)';
-                        card.style.setProperty('--team-color', color);
+                        var color = "hsl(" + candidate.toFixed(1) + ",65%,55%)";
+                        card.style.setProperty("--team-color", color);
 
                         try {
                             localStorage.setItem(key, color);
@@ -252,9 +267,9 @@ else
                         usedHues.push(candidate);
                     }
 
-                    var swatch = card.querySelector('.swatch');
+                    var swatch = card.querySelector(".swatch");
                     if (swatch) {
-                        swatch.style.background = 'var(--team-color)';
+                        swatch.style.background = "var(--team-color)";
                     }
                 });
             })();
@@ -262,29 +277,33 @@ else
             restoreAll();
 
             // Collapse / expand on header click
-            document.addEventListener('click', function (e) {
-                var toggleBtn = e.target.closest('.collapse-toggle');
+            document.addEventListener("click", function (e) {
+                var toggleBtn = e.target.closest(".collapse-toggle");
 
                 if (toggleBtn) {
-                    var card = toggleBtn.closest('.team-card');
-                    if (!card) return;
+                    var card = toggleBtn.closest(".team-card");
+                    if (!card) {
+                        return;
+                    }
 
-                    var collapsed = card.classList.toggle('collapsed');
-                    toggleBtn.setAttribute('aria-expanded', String(!collapsed));
+                    var collapsed = card.classList.toggle("collapsed");
+                    toggleBtn.setAttribute("aria-expanded", String(!collapsed));
                     saveCardState(card);
                     return;
                 }
 
-                var header = e.target.closest('.team-header');
-                if (header && !e.target.closest('button, a, form')) {
-                    var card = header.closest('.team-card');
-                    if (!card) return;
+                var header = e.target.closest(".team-header");
+                if (header && !e.target.closest("button, a, form")) {
+                    var card = header.closest(".team-card");
+                    if (!card) {
+                        return;
+                    }
 
-                    var collapsed = card.classList.toggle('collapsed');
-                    var btn = card.querySelector('.collapse-toggle');
+                    var collapsed = card.classList.toggle("collapsed");
+                    var btn = card.querySelector(".collapse-toggle");
 
                     if (btn) {
-                        btn.setAttribute('aria-expanded', String(!collapsed));
+                        btn.setAttribute("aria-expanded", String(!collapsed));
                     }
 
                     saveCardState(card);
@@ -292,42 +311,52 @@ else
             });
 
             // Save state before a bench/activate form submits
-            document.addEventListener('click', function (e) {
-                if (!e.target.closest('.bench-btn, .activate-btn')) return;
-
-                var state = {};
-
-                document.querySelectorAll('.team-card[data-team-id]').forEach(function (card) {
-                    var id = card.dataset.teamId;
-                    if (id) {
-                        state[id] = card.classList.contains('collapsed');
+            document.addEventListener(
+                "click",
+                function (e) {
+                    if (!e.target.closest(".bench-btn, .activate-btn")) {
+                        return;
                     }
-                });
 
-                writeState(state);
-            }, true);
+                    var state = {};
+
+                    document.querySelectorAll(".team-card[data-team-id]").forEach(function (card) {
+                        var id = card.dataset.teamId;
+                        if (id) {
+                            state[id] = card.classList.contains("collapsed");
+                        }
+                    });
+
+                    writeState(state);
+                },
+                true
+            );
 
             // Global search
-            var searchInput = document.getElementById('globalSearchInput');
-            var clearBtn = document.getElementById('globalSearchClear');
-            var countEl = document.getElementById('globalSearchCount');
+            var searchInput = document.getElementById("globalSearchInput");
+            var clearBtn = document.getElementById("globalSearchClear");
+            var countEl = document.getElementById("globalSearchCount");
 
-            if (!searchInput) return;
+            if (!searchInput) {
+                return;
+            }
 
             function removeDynamicEmpties() {
-                document.querySelectorAll('.search-empty').forEach(function (el) {
+                document.querySelectorAll(".search-empty").forEach(function (el) {
                     el.remove();
                 });
             }
 
             function expandCard(card) {
-                if (!card.classList.contains('collapsed')) return;
+                if (!card.classList.contains("collapsed")) {
+                    return;
+                }
 
-                card.classList.remove('collapsed');
+                card.classList.remove("collapsed");
 
-                var btn = card.querySelector('.collapse-toggle');
+                var btn = card.querySelector(".collapse-toggle");
                 if (btn) {
-                    btn.setAttribute('aria-expanded', 'true');
+                    btn.setAttribute("aria-expanded", "true");
                 }
 
                 saveCardState(card);
@@ -339,13 +368,13 @@ else
 
                 var totalVisible = 0;
 
-                document.querySelectorAll('.team-card[data-team-id]').forEach(function (card) {
-                    var teamName = card.dataset.teamName || '';
+                document.querySelectorAll(".team-card[data-team-id]").forEach(function (card) {
+                    var teamName = card.dataset.teamName || "";
                     var items = Array.from(
-                        card.querySelectorAll('.cyclist-list li[data-cyclist-name]')
+                        card.querySelectorAll(".cyclist-list li[data-cyclist-name]")
                     );
 
-                    if (query === '') {
+                    if (query === "") {
                         items.forEach(function (li) {
                             li.hidden = false;
                         });
@@ -359,7 +388,7 @@ else
                     var cyclistMatches = 0;
 
                     items.forEach(function (li) {
-                        var match = (li.dataset.cyclistName || '').includes(query);
+                        var match = (li.dataset.cyclistName || "").includes(query);
                         li.hidden = !match;
 
                         if (match) {
@@ -381,18 +410,20 @@ else
                         totalVisible += cyclistMatches;
                         expandCard(card);
 
-                        card.querySelectorAll('.column').forEach(function (col) {
-                            var list = col.querySelector('.cyclist-list');
-                            if (!list) return;
+                        card.querySelectorAll(".column").forEach(function (col) {
+                            var list = col.querySelector(".cyclist-list");
+                            if (!list) {
+                                return;
+                            }
 
-                            var allHidden = Array.from(list.querySelectorAll('li')).every(function (li) {
+                            var allHidden = Array.from(list.querySelectorAll("li")).every(function (li) {
                                 return li.hidden;
                             });
 
                             if (allHidden) {
-                                var msg = document.createElement('div');
-                                msg.className = 'empty search-empty';
-                                msg.textContent = 'No matches';
+                                var msg = document.createElement("div");
+                                msg.className = "empty search-empty";
+                                msg.textContent = "No matches";
                                 col.appendChild(msg);
                             }
                         });
@@ -401,24 +432,25 @@ else
                     }
                 });
 
-                if (query === '') {
+                if (query === "") {
                     clearBtn.hidden = true;
-                    countEl.textContent = '';
+                    countEl.textContent = "";
                 } else {
                     clearBtn.hidden = false;
-                    countEl.textContent = totalVisible > 0
-                        ? totalVisible + ' cyclist' + (totalVisible !== 1 ? 's' : '') + ' found'
-                        : 'No results';
+                    countEl.textContent =
+                        totalVisible > 0
+                            ? totalVisible + " cyclist" + (totalVisible !== 1 ? "s" : "") + " found"
+                            : "No results";
                 }
             }
 
-            searchInput.addEventListener('input', function () {
+            searchInput.addEventListener("input", function () {
                 applyFilter(searchInput.value);
             });
 
-            clearBtn.addEventListener('click', function () {
-                searchInput.value = '';
-                applyFilter('');
+            clearBtn.addEventListener("click", function () {
+                searchInput.value = "";
+                applyFilter("");
                 searchInput.focus();
             });
         })();

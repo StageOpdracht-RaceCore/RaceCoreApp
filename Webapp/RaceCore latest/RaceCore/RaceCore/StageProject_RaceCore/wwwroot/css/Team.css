@@ -1,4 +1,4 @@
-﻿/* =============================================================================
+/* =============================================================================
    Team.css - RaceCore Teams page
    ============================================================================= */
 
@@ -23,27 +23,27 @@
 
 /* Page summary card */
 .page-summary {
+    box-sizing: border-box;
     width: calc(100% - 2rem);
     margin: 0 auto 1.5rem;
     padding: 24px 28px;
-    box-sizing: border-box;
     background: var(--rc-surface);
     border: 1px solid var(--rc-border);
     border-radius: var(--rc-radius-lg);
     box-shadow: var(--rc-shadow);
 }
 
-    .page-summary h2 {
-        margin: 0 0 4px;
-        font-size: 1.4rem;
-        color: var(--rc-text);
-    }
+.page-summary h2 {
+    margin: 0 0 4px;
+    font-size: 1.4rem;
+    color: var(--rc-text);
+}
 
-    .page-summary p {
-        margin: 0;
-        font-size: 0.9rem;
-        color: var(--rc-text-muted);
-    }
+.page-summary p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--rc-text-muted);
+}
 
 /* Global search bar */
 .global-search-bar {
@@ -59,27 +59,27 @@
     box-shadow: var(--rc-shadow-sm);
 }
 
-    .global-search-bar input[type="text"] {
-        flex: 1;
-        padding: 8px 14px;
-        font-size: 0.9rem;
-        color: var(--rc-text);
-        background: #f9fafb;
-        border: 1px solid var(--rc-border);
-        border-radius: var(--rc-radius-md);
-        outline: none;
-        transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
-    }
+.global-search-bar input[type="text"] {
+    flex: 1;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    color: var(--rc-text);
+    background: #f9fafb;
+    border: 1px solid var(--rc-border);
+    border-radius: var(--rc-radius-md);
+    outline: none;
+    transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
 
-        .global-search-bar input[type="text"]:focus {
-            background: var(--rc-surface);
-            border-color: var(--rc-blue);
-            box-shadow: 0 0 0 3px var(--rc-blue-glow);
-        }
+.global-search-bar input[type="text"]:focus {
+    background: var(--rc-surface);
+    border-color: var(--rc-blue);
+    box-shadow: 0 0 0 3px var(--rc-blue-glow);
+}
 
-        .global-search-bar input[type="text"]::placeholder {
-            color: #9ca3af;
-        }
+.global-search-bar input[type="text"]::placeholder {
+    color: #9ca3af;
+}
 
 #globalSearchClear {
     padding: 7px 14px;
@@ -92,10 +92,10 @@
     transition: background 150ms ease, color 150ms ease;
 }
 
-    #globalSearchClear:hover {
-        background: #f3f4f6;
-        color: var(--rc-text);
-    }
+#globalSearchClear:hover {
+    color: var(--rc-text);
+    background: #f3f4f6;
+}
 
 #globalSearchCount {
     min-width: 100px;
@@ -109,10 +109,14 @@
 .teams-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    row-gap: 16px;
     align-items: start;
     width: calc(100% - 2rem);
     margin: 0 auto;
+}
+
+.teams-grid-wide-gap {
+    column-gap: 5ch;
 }
 
 @media (max-width: 700px) {
@@ -134,18 +138,18 @@
     transition: box-shadow 200ms ease, border-color 200ms ease;
 }
 
-    .team-card:hover {
-        box-shadow: var(--rc-shadow);
-    }
+.team-card:hover {
+    box-shadow: var(--rc-shadow);
+}
 
-    .team-card.collapsed {
-        border-color: var(--rc-border);
-    }
+.team-card.collapsed {
+    border-color: var(--rc-border);
+}
 
-    .team-card:not(.collapsed) {
-        max-height: 520px;
-        border-top: 4px solid var(--team-color);
-    }
+.team-card:not(.collapsed) {
+    max-height: 520px;
+    border-top: 4px solid var(--team-color);
+}
 
 /* Team header */
 .team-header {
@@ -158,9 +162,9 @@
     user-select: none;
 }
 
-    .team-header:hover {
-        background: #fafafa;
-    }
+.team-header:hover {
+    background: #fafafa;
+}
 
 .team-meta {
     display: flex;
@@ -210,9 +214,9 @@
 .team-stats {
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     align-items: flex-end;
     gap: 5px;
-    flex-shrink: 0;
 }
 
 .team-stats-top {
@@ -254,20 +258,20 @@
     transition: background 150ms ease;
 }
 
-    .collapse-toggle:hover {
-        color: var(--rc-text);
-        background: #e5e7eb;
-    }
+.collapse-toggle:hover {
+    color: var(--rc-text);
+    background: #e5e7eb;
+}
 
-    .collapse-toggle:focus {
-        outline: 2px solid var(--rc-blue);
-        outline-offset: 2px;
-    }
+.collapse-toggle:focus {
+    outline: 2px solid var(--rc-blue);
+    outline-offset: 2px;
+}
 
-    .collapse-toggle .arrow {
-        display: inline-block;
-        transition: transform 220ms ease;
-    }
+.collapse-toggle .arrow {
+    display: inline-block;
+    transition: transform 220ms ease;
+}
 
 .team-card.collapsed .collapse-toggle .arrow {
     transform: rotate(-90deg);
@@ -298,14 +302,14 @@
     min-width: 0;
 }
 
-    .column h4 {
-        margin: 0 0 8px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        color: var(--rc-text-muted);
-    }
+.column h4 {
+    margin: 0 0 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--rc-text-muted);
+}
 
 /* Cyclist list */
 .cyclist-list {
@@ -314,24 +318,24 @@
     list-style: none;
 }
 
-    .cyclist-list li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 6px 8px;
-        font-size: 0.875rem;
-        color: var(--rc-text);
-        border-radius: var(--rc-radius-sm);
-        transition: background 120ms ease;
-    }
+.cyclist-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    font-size: 0.875rem;
+    color: var(--rc-text);
+    border-radius: var(--rc-radius-sm);
+    transition: background 120ms ease;
+}
 
-        .cyclist-list li:hover {
-            background: #f9fafb;
-        }
+.cyclist-list li:hover {
+    background: #f9fafb;
+}
 
-        .cyclist-list li[hidden] {
-            display: none;
-        }
+.cyclist-list li[hidden] {
+    display: none;
+}
 
 /* Empty / no-results */
 .empty {
@@ -360,10 +364,10 @@
     border: 1px solid #d1d5db;
 }
 
-    .bench-btn:hover {
-        background: #f3f4f6;
-        border-color: #9ca3af;
-    }
+.bench-btn:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
 
 .activate-btn {
     color: #fff;
@@ -371,7 +375,7 @@
     border: 1px solid var(--rc-green);
 }
 
-    .activate-btn:hover {
-        background: var(--rc-green-dark);
-        border-color: var(--rc-green-dark);
-    }
+.activate-btn:hover {
+    background: var(--rc-green-dark);
+    border-color: var(--rc-green-dark);
+}
