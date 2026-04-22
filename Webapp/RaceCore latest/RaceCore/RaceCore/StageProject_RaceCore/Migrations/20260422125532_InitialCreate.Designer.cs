@@ -11,7 +11,7 @@ using StageProject_RaceCore.Models;
 namespace StageProject_RaceCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260421130529_InitialCreate")]
+    [Migration("20260422125532_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -99,7 +99,7 @@ namespace StageProject_RaceCore.Migrations
 
                     b.HasIndex("StageId");
 
-                    b.ToTable("Jersey");
+                    b.ToTable("Jerseys");
                 });
 
             modelBuilder.Entity("StageProject_RaceCore.Models.Player", b =>
@@ -111,6 +111,12 @@ namespace StageProject_RaceCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("PositionInDraft")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalPoints")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -341,8 +347,7 @@ namespace StageProject_RaceCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Tag")
-                        .IsUnique();
+                    b.HasIndex("Tag");
 
                     b.ToTable("Teams");
                 });

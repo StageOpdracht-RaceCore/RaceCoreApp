@@ -17,7 +17,9 @@ namespace StageProject_RaceCore.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    PositionInDraft = table.Column<int>(type: "INTEGER", nullable: false),
+                    TotalPoints = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,7 +150,7 @@ namespace StageProject_RaceCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Jersey",
+                name: "Jerseys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -159,15 +161,15 @@ namespace StageProject_RaceCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Jersey", x => x.Id);
+                    table.PrimaryKey("PK_Jerseys", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Jersey_Cyclists_CyclistId",
+                        name: "FK_Jerseys_Cyclists_CyclistId",
                         column: x => x.CyclistId,
                         principalTable: "Cyclists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Jersey_Stages_StageId",
+                        name: "FK_Jerseys_Stages_StageId",
                         column: x => x.StageId,
                         principalTable: "Stages",
                         principalColumn: "Id",
@@ -333,13 +335,13 @@ namespace StageProject_RaceCore.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Jersey_CyclistId",
-                table: "Jersey",
+                name: "IX_Jerseys_CyclistId",
+                table: "Jerseys",
                 column: "CyclistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Jersey_StageId",
-                table: "Jersey",
+                name: "IX_Jerseys_StageId",
+                table: "Jerseys",
                 column: "StageId");
 
             migrationBuilder.CreateIndex(
@@ -420,8 +422,7 @@ namespace StageProject_RaceCore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_Tag",
                 table: "Teams",
-                column: "Tag",
-                unique: true);
+                column: "Tag");
         }
 
         /// <inheritdoc />
@@ -431,7 +432,7 @@ namespace StageProject_RaceCore.Migrations
                 name: "DraftTurns");
 
             migrationBuilder.DropTable(
-                name: "Jersey");
+                name: "Jerseys");
 
             migrationBuilder.DropTable(
                 name: "PlayerPoints");
