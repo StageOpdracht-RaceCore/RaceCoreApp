@@ -1,6 +1,7 @@
 ﻿@model StageProject_RaceCore.Models.Player
+
 @{
-    ViewData["Title"] = "Teams";
+    ViewData["Title"] = "Speler verwijderen";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
@@ -11,6 +12,7 @@
 </div>
 
 <form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
 
     <button type="submit" class="btn btn-danger">Verwijderen</button>

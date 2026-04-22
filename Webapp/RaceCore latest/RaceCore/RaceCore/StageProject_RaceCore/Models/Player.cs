@@ -4,10 +4,10 @@
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public required string Name { get; set; }
 
-        public List<PlayerSelection> Selections { get; set; } = new();
-        public List<DraftTurn> DraftTurns { get; set; } = new();
-        public List<PlayerPoints> PlayerPoints { get; set; } = new();
+        public ICollection<PlayerSelection> Selections { get; set; } = new List<PlayerSelection>();
+        public ICollection<DraftTurn> DraftTurns { get; set; } = new List<DraftTurn>();
+        public ICollection<PlayerPoints> PlayerPoints { get; set; } = new List<PlayerPoints>();
     }
 }

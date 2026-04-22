@@ -1,7 +1,7 @@
 ﻿@model StageProject_RaceCore.Models.Player
 
 @{
-    ViewData["Title"] = "Teams";
+    ViewData["Title"] = "Speler details";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
@@ -14,14 +14,15 @@
     <hr />
 
     <h5>Selections</h5>
-    <p>@(Model.Selections?.Count ?? 0) items</p>
+    <p>@Model.Selections.Count items</p>
 
     <h5>Draft turns</h5>
-    <p>@(Model.DraftTurns?.Count ?? 0) items</p>
+    <p>@Model.DraftTurns.Count items</p>
 
     <h5>Punten</h5>
-    <p>@(Model.PlayerPoints?.Count ?? 0) records</p>
+    <p>@Model.PlayerPoints.Count records</p>
 
 </div>
 
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-3">Bewerken</a>
 <a asp-action="Index" class="btn btn-secondary mt-3">Terug</a>

@@ -23,9 +23,9 @@
         {
             <tr>
                 <td>@p.Name</td>
-                <td>@(p.Selections?.Count ?? 0)</td>
-                <td>@(p.DraftTurns?.Count ?? 0)</td>
-                <td>@(p.PlayerPoints?.Count ?? 0)</td>
+                <td>@p.Selections.Count</td>
+                <td>@p.DraftTurns.Count</td>
+                <td>@p.PlayerPoints.Count</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@p.Id">Details</a> |
                     <a asp-action="Edit" asp-route-id="@p.Id">Edit</a> |
